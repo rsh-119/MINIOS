@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: MiniOS
+Version: 1.0.0
+Summary: An AI-driven CPU scheduling simulator with GUI and visualization
+Home-page: https://github.com/rsh-119/MINIOS
+Author: Rishabh Yadav 
+Author-email: personalrsh11@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib>=3.5.0
+Requires-Dist: numpy>=1.22.0
+Requires-Dist: pandas>=1.4.0
+Requires-Dist: streamlit>=1.25.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+##  Round Robin (Quantum = 3) Demo
+
+Here’s a live scheduling animation from MiniOS showing how 3 processes are handled 
+under Round Robin with a time quantum of 3 units.
+
+![MiniOS Demo](CPU_Scheduling_Animation_-_Round_Robin_(Quantum_=_3).gif)
+
+**Input:**
+| Process | AT | BT |
+|----------|----|----|
+| P1 | 2 | 6 |
+| P2 | 0 | 2 |
+| P3 | 4 | 2 |
+| P4 | 6 | 2 |
+
+**Results:**
+| PID | AT | BT | ST | FT | WT | TAT |
+|:---:|:--:|:--:|:--:|:--:|:--:|:---:|
+| P2 | 0 | 2 | 0 | 2 | 0 | 2 |
+| P1 | 2 | 6 | 2 | 8 | 0 | 6 |
+| P3 | 4 | 2 | 8 | 10 | 4 | 6 |
+| P4 | 6 | 2 | 10 | 12 | 4 | 6 |
+
+**Summary:**  
+Avg WT = **2.00**, Avg TAT = **5.00**, Memory fully released 

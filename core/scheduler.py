@@ -55,23 +55,32 @@ class Scheduler:
         time, completed = 0, []
         ready_queue = []
 
-        # allocate all processes once at start
+        # Allocate all processes at start
         for p in queue:
             self.memory.allocate(p, size=50)
+            p.remaining_time = p.burst_time
+            p.start_time = None
 
         while queue or ready_queue:
+            # Move arrived processes to ready queue
             while queue and queue[0].arrival_time <= time:
                 ready_queue.append(queue.pop(0))
 
             if ready_queue:
                 p = ready_queue.pop(0)
-                if p.remaining_time == 0:
-                    continue
-                if p.start_time == 0:
+
+                # Mark first CPU start time
+                if p.start_time is None:
                     p.start_time = time
+
                 exec_time = min(p.remaining_time, quantum)
                 p.remaining_time -= exec_time
                 time += exec_time
+
+                # Check for new arrivals during execution
+                while queue and queue[0].arrival_time <= time:
+                    ready_queue.append(queue.pop(0))
+
                 if p.remaining_time == 0:
                     p.finish_time = time
                     p.turnaround_time = p.finish_time - p.arrival_time
@@ -81,8 +90,10 @@ class Scheduler:
                 else:
                     ready_queue.append(p)
             else:
-                time += 1
+                time += 1  # CPU idle
+
         return completed
+
 
     # ---------- Averages ----------
     def calculate_averages(self, processes):
